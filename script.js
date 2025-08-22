@@ -327,39 +327,52 @@
     if (createBtn) {
       createBtn.addEventListener('click', () => {
         const title = (byId('lp-title')?.value || '').trim();
-        const image = (byId('lp-image')?.value || '').trim();
-        const target = Number(byId('lp-target')?.value || 0);
-        const preorderUnitPrice = Number(byId('lp-unit-price')?.value || 0);
-        const preorderPct = Number(byId('lp-preorder-pct')?.value || 0);
-        let microPct = Number(byId('lp-micro-pct')?.value || (100 - preorderPct));
-        if (preorderPct + microPct !== 100) {
-          alert('Funding split must total 100%.');
-          return;
-        }
-        if (!title || target <= 0 || preorderPct < 0 || microPct < 0) {
-          alert('Please provide a valid title, goal, and split.');
-          return;
-        }
-        if (preorderPct > 0 && preorderUnitPrice <= 0) {
-          alert('Please set a valid preorder unit price.');
-          return;
-        }
-        const id = `lp_${Date.now()}_${Math.floor(Math.random()*1e4)}`;
-        const next = [
-          ...getLPItems(),
-          { id, title, image, target, preorderUnitPrice, preorderPct, microPct, microRaised: 0, preordersUnits: 0, ownerId: getCurrentUserId() }
-        ];
-        setLPItems(next);
-        ['lp-title','lp-image','lp-target','lp-unit-price','lp-preorder-pct','lp-micro-pct'].forEach(i => { const el = byId(i); if (el) el.value = ''; });
-        
-        // If on create-project page, redirect to launchpad after creation
-        if (window.location.pathname.includes('create-project.html')) {
-          // Show success message briefly then redirect
-          alert('Project created successfully!');
-          window.location.href = 'launchpad.html';
+        const imageInput = byId('lp-image');
+        const imageFile = imageInput?.files && imageInput.files[0];
+        let image = '';
+
+        const processProjectCreation = (imageData) => {
+          const target = Number(byId('lp-target')?.value || 0);
+          const preorderUnitPrice = Number(byId('lp-unit-price')?.value || 0);
+          const preorderPct = Number(byId('lp-preorder-pct')?.value || 0);
+          let microPct = Number(byId('lp-micro-pct')?.value || (100 - preorderPct));
+          if (preorderPct + microPct !== 100) {
+            alert('Funding split must total 100%.');
+            return;
+          }
+          if (!title || target <= 0 || preorderPct < 0 || microPct < 0) {
+            alert('Please provide a valid title, goal, and split.');
+            return;
+          }
+          if (preorderPct > 0 && preorderUnitPrice <= 0) {
+            alert('Please set a valid preorder unit price.');
+            return;
+          }
+          const id = `lp_${Date.now()}_${Math.floor(Math.random()*1e4)}`;
+          const next = [
+            ...getLPItems(),
+            { id, title, image: imageData, target, preorderUnitPrice, preorderPct, microPct, microRaised: 0, preordersUnits: 0, ownerId: getCurrentUserId() }
+          ];
+          setLPItems(next);
+          ['lp-title','lp-image','lp-target','lp-unit-price','lp-preorder-pct','lp-micro-pct'].forEach(i => { const el = byId(i); if (el) el.value = ''; });
+          
+          if (window.location.pathname.includes('create-project.html')) {
+            alert('Project created successfully!');
+            window.location.href = 'launchpad.html';
+          } else {
+            renderLaunchpad();
+          }
+        };
+
+        if (imageFile) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            image = e.target.result;
+            processProjectCreation(image);
+          };
+          reader.readAsDataURL(imageFile);
         } else {
-          // Only render if we're on the launchpad page
-          renderLaunchpad();
+          processProjectCreation('');
         }
       });
     }
