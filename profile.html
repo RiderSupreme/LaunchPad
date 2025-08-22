@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile • Launchpad</title>
+    <script>(function(){try{var t=localStorage.getItem('lp_theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="animation-container"></div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="name">Launchpad</span>
+        </div>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="profile.html">Profile</a>
+          <a href="launchpad.html">Launchpad</a>
+          <a href="skill-link.html">Skill Link</a>
+          <button id="themeToggle" class="btn small theme-toggle" type="button">Dark</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section">
+        <h2>Profile</h2>
+        <div class="profile-grid">
+          <form id="profileForm" class="card">
+            <div class="field">
+              <label for="pf-name">Name</label>
+              <input id="pf-name" name="name" type="text" placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label for="pf-role">Role</label>
+              <input id="pf-role" name="role" type="text" placeholder="e.g., Frontend Engineer" />
+            </div>
+            <div class="field">
+              <label for="pf-bio">Bio</label>
+              <textarea id="pf-bio" name="bio" rows="4" placeholder="Short intro"></textarea>
+            </div>
+            <div class="field">
+              <label for="pf-skills">Skills (comma separated)</label>
+              <input id="pf-skills" name="skills" type="text" placeholder="React, Node.js, SQL" />
+            </div>
+            <div class="actions">
+              <button type="submit" class="btn primary">Save Profile</button>
+              <button type="button" id="pf-clear" class="btn ghost">Clear</button>
+            </div>
+          </form>
+
+          <div class="card profile-summary">
+            <h3>Your Profile</h3>
+            <div id="profileSummary">
+              <p class="muted">No profile saved yet.</p>
+            </div>
+            <div class="scoreboard">
+              <div class="score">
+                <span class="label">Your Points</span>
+                <span id="myPoints" class="value">0</span>
+              </div>
+              <div class="hint muted">Complete projects to earn more points.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <span class="muted">Built for internal organizations • Minimal dependencies</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
+
+

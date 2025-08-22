@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Launchpad</title>
+    <script>(function(){try{var t=localStorage.getItem('lp_theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="animation-container"></div>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="name">Launchpad</span>
+        </div>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="profile.html">Profile</a>
+          <a href="launchpad.html">Launchpad</a>
+          <a href="skill-link.html">Skill Link</a>
+          <button id="themeToggle" class="btn small theme-toggle" type="button">Dark</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section hero">
+        <div class="hero-inner card">
+          <h1 class="hero-title">Connect. Build. Launch.</h1>
+          <p class="hero-subtitle">A clean, minimal hub for your organization’s talent and projects.</p>
+          <div class="cta-group">
+            <a class="btn primary" href="profile.html">Go to Profile</a>
+            <a class="btn" href="skill-link.html">Explore Skill Link</a>
+            <a class="btn" href="launchpad.html">Browse Projects</a>
+            <a class="btn ghost" href="create-project.html">Create Project</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <span class="muted">Built for internal organizations • Minimal dependencies</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
+
+

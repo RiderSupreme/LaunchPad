@@ -1,0 +1,50 @@
+Launchpad - How to run locally
+================================
+
+Requirements: None. This is a static site (HTML, CSS, JS) with no build step.
+
+Option A) Easiest: open the landing page directly
+-------------------------------------------------
+1) Open the folder:
+   C:\Users\Web\Desktop\cursor\launchpad
+2) Double-click index.html (landing page) to open it in your browser.
+
+Option B) Serve with a simple local server (optional)
+----------------------------------------------------
+Use this if you prefer a localhost URL. Any one of these works:
+
+1) Python (3.x)
+   - Open PowerShell in the project folder and run:
+     python -m http.server 8080
+   - Visit http://localhost:8080 in your browser.
+
+2) Node (npx, no install, will prompt if not present)
+   - Open PowerShell and run:
+     npx --yes serve -l 8080
+   - Visit http://localhost:8080
+
+Persisted data
+--------------
+- Your profile and points are stored in your browser's localStorage.
+- To reset, clear site data in the browser devtools, or click "Clear" on the Profile form (profile only).
+
+Pages
+-----
+- Home (index.html): Landing page with three buttons.
+- Profile (profile.html): Save your name, role, bio, and skills. Shows your points.
+- Launchpad (launchpad.html): Kickstarter placeholder content.
+- Skill Link (skill-link.html): Filter projects and people by skills. Use chips or comma-separated input.
+
+Points system
+-------------
+- Click "Mark Completed" to add +10 points to your profile.
+- Click "Mark Failed" to deduct -6 points.
+- These actions also update the project status tag.
+
+Notes
+-----
+- There are 6 placeholder users and several projects pre-seeded.
+- No external libraries are used.
+ - Animated gradient and particle background are enabled on all pages. If you prefer fewer animations, enable your OS/browser "Reduced Motion" accessibility setting and the site will disable these effects automatically.
+
+
