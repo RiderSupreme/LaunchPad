@@ -43,8 +43,8 @@
               <input id="lp-title" type="text" placeholder="Enter your project title" />
             </div>
             <div class="field">
-              <label for="lp-image">Project Image URL</label>
-              <input id="lp-image" type="text" placeholder="https://example.com/image.jpg (optional)" />
+              <label for="lp-image">Upload Thumbnail Picture</label>
+              <input id="lp-image" type="file" accept="image/*" />
             </div>
             <div class="field">
               <label for="lp-target">Funding Goal</label>
@@ -98,7 +98,13 @@
       function clearForm() {
         ['lp-title','lp-image','lp-target','lp-unit-price','lp-preorder-pct','lp-micro-pct'].forEach(id => {
           const el = document.getElementById(id);
-          if (el) el.value = '';
+          if (el) {
+            if (el.type === 'file') {
+              el.value = ''; // Clear file input
+            } else {
+              el.value = '';
+            }
+          }
         });
       }
 
