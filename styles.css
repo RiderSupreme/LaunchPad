@@ -101,9 +101,12 @@ body {
   background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.66));
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.3px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.3px; position: relative; z-index: 2; }
 .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color-main); box-shadow: 0 0 12px rgba(140,169,173,0.7); }
+.brand .img { height: 50px; width: auto; object-fit: contain; display: inline-block; position: relative; top: 3px; left: 6px; z-index: 2; }
+.brand::before { content: ""; position: absolute; left: 13px; top: 55%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; background: var(--color-main); opacity: 0.18; filter: blur(10px); pointer-events: none; z-index: 1; }
 .brand .name { color: var(--color-text); }
+.nav { position: relative; z-index: 1; }
 .nav a { color: var(--color-secondary); text-decoration: none; margin-left: 16px; padding: 8px 10px; border-radius: 8px; border: 1px solid transparent; }
 .nav a:hover { border-color: var(--color-border); color: var(--color-text); }
 .nav .theme-toggle { margin-left: 12px; }
