@@ -58,24 +58,47 @@
       const hasUnknownOwner = Array.isArray(projects) && projects.some(p => !validOwner(p.ownerId));
       if (hasUnknownOwner) writeJSON(LS_KEYS.PROJECTS, PROJECTS);
     }
-    const lp = readJSON(LS_KEYS.LP_ITEMS, null);
-    if (!lp) {
+    // LaunchPad items seed + migration
+    let lp = readJSON(LS_KEYS.LP_ITEMS, null);
+    if (!Array.isArray(lp)) lp = [];
 
-      writeJSON(LS_KEYS.LP_ITEMS, [
-        {
-          id: "lp1",
-          title: "Compact 3D Printer",
-          image: "compact-3d-printer.jpg",
-          target: 10000,
-          preorderUnitPrice: 199,
-          preorderPct: 60,
-          microPct: 40,
-          microRaised: 2500,
-          preordersUnits: 18,
-          ownerId: getCurrentUserId(),
-          createdAt: Date.now() - 86400000
-        }
-      ]);
+    // Remove legacy Compact 3D Printer if present
+    const filtered = lp.filter((it) => String(it.title || '').trim().toLowerCase() !== 'compact 3d printer');
+
+    const hasHEARO = filtered.some((it) => (it.id === 'lp_hearo') || (String(it.title || '').trim().toLowerCase() === 'hearo'));
+    const hasRoBlaze = filtered.some((it) => (it.id === 'lp_roblaze') || (String(it.title || '').trim().toLowerCase() === 'roblaze'));
+
+    const seedItems = [];
+    if (!hasHEARO) seedItems.push({
+      id: 'lp_hearo',
+      title: 'HEARO',
+      image: 'HEARO.png',
+      target: 10000,
+      preorderUnitPrice: 199,
+      preorderPct: 60,
+      microPct: 40,
+      microRaised: 0,
+      preordersUnits: 0,
+      ownerId: getCurrentUserId(),
+      createdAt: Date.now() - 2 * 86400000
+    });
+    if (!hasRoBlaze) seedItems.push({
+      id: 'lp_roblaze',
+      title: 'RoBlaze',
+      image: 'RoBlaze.jpg',
+      target: 10000,
+      preorderUnitPrice: 249,
+      preorderPct: 60,
+      microPct: 40,
+      microRaised: 0,
+      preordersUnits: 0,
+      ownerId: getCurrentUserId(),
+      createdAt: Date.now() - 1 * 86400000
+    });
+
+    const nextLp = filtered.length || seedItems.length ? [...filtered, ...seedItems] : seedItems;
+    if (nextLp.length !== lp.length || seedItems.length || filtered.length !== lp.length) {
+      writeJSON(LS_KEYS.LP_ITEMS, nextLp);
     }
   }
 
@@ -145,7 +168,7 @@
       const owner = getOwner(p.ownerId);
       const card = document.createElement("article");
       card.className = "project";
-      const thumb = (String(p.title || '').toLowerCase() === 'compact 3d printer') ? 'compact-3d-printer.jpg' : '';
+      const thumb = '';
       card.innerHTML = `
         <div class="header">
           <div class="id">
@@ -299,7 +322,7 @@
       const totalRaised = preorderRaised + microRaised;
       const imgSrc = (item.image && item.image.trim())
         ? item.image.trim()
-        : (String(item.title || '').trim().toLowerCase() === 'compact 3d printer' ? 'compact-3d-printer.jpg' : '');
+        : (String(item.title || '').trim().toLowerCase() === 'hearo' ? 'HEARO.png' : (String(item.title || '').trim().toLowerCase() === 'roblaze' ? 'RoBlaze.jpg' : ''));
 
       const card = document.createElement("article");
       card.className = "lp-card";
@@ -307,7 +330,7 @@
       card.id = `lp-${item.id}`;
       const createdAt = getItemCreatedAt(item);
       card.innerHTML = `
-        <img class="lp-thumb" alt="${item.title}" ${imgSrc ? `src=\"${imgSrc}\"` : ''} onerror="if(!this.dataset.try){this.dataset.try='1';this.src='compact-3d-printer.jpg';}else if(this.dataset.try==='1'){this.dataset.try='2';this.src='compact-3d-printer.png';}else{this.style.display='none';}" loading="lazy" />
+        <img class="lp-thumb" alt="${item.title}" ${imgSrc ? `src=\"${imgSrc}\"` : ''} onerror="this.onerror=null;this.style.display='none';" loading="lazy" />
         <div class="lp-meta">
           <div class="header">
             <div>
@@ -484,7 +507,7 @@
       const totalRaised = preorderRaised + microRaised;
       const imgSrc = (item.image && item.image.trim())
         ? item.image.trim()
-        : (String(item.title || '').trim().toLowerCase() === 'compact 3d printer' ? 'compact-3d-printer.jpg' : '');
+        : (String(item.title || '').trim().toLowerCase() === 'hearo' ? 'HEARO.png' : (String(item.title || '').trim().toLowerCase() === 'roblaze' ? 'RoBlaze.jpg' : ''));
 
       const card = document.createElement('article');
       card.className = 'lp-card';
@@ -495,7 +518,7 @@
       const isMine = String(item.ownerId || '') === String(getCurrentUserId());
       const ownerName = isMine ? 'You' : (getOwner && getOwner(item.ownerId || '') ? (getOwner(item.ownerId || '').name) : 'Unknown');
       card.innerHTML = `
-        <img class="lp-thumb" alt="${item.title}" ${imgSrc ? `src=\"${imgSrc}\"` : ''} onerror="if(!this.dataset.try){this.dataset.try='1';this.src='compact-3d-printer.jpg';}else if(this.dataset.try==='1'){this.dataset.try='2';this.src='compact-3d-printer.png';}else{this.style.display='none';}" loading="lazy" />
+        <img class="lp-thumb" alt="${item.title}" ${imgSrc ? `src=\"${imgSrc}\"` : ''} onerror="this.onerror=null;this.style.display='none';" loading="lazy" />
         <div class="lp-meta">
           <div class="header">
             <div>
