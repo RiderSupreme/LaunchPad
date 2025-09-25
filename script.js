@@ -65,7 +65,7 @@
         {
           id: "lp1",
           title: "Compact 3D Printer",
-          image: "./compact-3d-printer.jpg",
+          image: "compact-3d-printer.jpg",
           target: 10000,
           preorderUnitPrice: 199,
           preorderPct: 60,
@@ -145,7 +145,7 @@
       const owner = getOwner(p.ownerId);
       const card = document.createElement("article");
       card.className = "project";
-      const thumb = (String(p.title || '').toLowerCase() === 'compact 3d printer') ? './compact-3d-printer.jpg' : '';
+      const thumb = (String(p.title || '').toLowerCase() === 'compact 3d printer') ? 'compact-3d-printer.jpg' : '';
       card.innerHTML = `
         <div class="header">
           <div class="id">
@@ -299,7 +299,7 @@
       const totalRaised = preorderRaised + microRaised;
       const imgSrc = (item.image && item.image.trim())
         ? item.image.trim()
-        : (String(item.title || '').trim().toLowerCase() === 'compact 3d printer' ? './compact-3d-printer.jpg' : '');
+        : (String(item.title || '').trim().toLowerCase() === 'compact 3d printer' ? 'compact-3d-printer.jpg' : '');
 
       const card = document.createElement("article");
       card.className = "lp-card";
@@ -307,7 +307,7 @@
       card.id = `lp-${item.id}`;
       const createdAt = getItemCreatedAt(item);
       card.innerHTML = `
-        <img class="lp-thumb" alt="${item.title}" ${imgSrc ? `src=\"${imgSrc}\"` : ''} loading="lazy" />
+        <img class="lp-thumb" alt="${item.title}" ${imgSrc ? `src=\"${imgSrc}\"` : ''} onerror="if(!this.dataset.try){this.dataset.try='1';this.src='compact-3d-printer.jpg';}else if(this.dataset.try==='1'){this.dataset.try='2';this.src='compact-3d-printer.png';}else{this.style.display='none';}" loading="lazy" />
         <div class="lp-meta">
           <div class="header">
             <div>
@@ -484,7 +484,7 @@
       const totalRaised = preorderRaised + microRaised;
       const imgSrc = (item.image && item.image.trim())
         ? item.image.trim()
-        : (String(item.title || '').trim().toLowerCase() === 'compact 3d printer' ? './compact-3d-printer.jpg' : '');
+        : (String(item.title || '').trim().toLowerCase() === 'compact 3d printer' ? 'compact-3d-printer.jpg' : '');
 
       const card = document.createElement('article');
       card.className = 'lp-card';
@@ -495,7 +495,7 @@
       const isMine = String(item.ownerId || '') === String(getCurrentUserId());
       const ownerName = isMine ? 'You' : (getOwner && getOwner(item.ownerId || '') ? (getOwner(item.ownerId || '').name) : 'Unknown');
       card.innerHTML = `
-        <img class="lp-thumb" alt="${item.title}" ${imgSrc ? `src=\"${imgSrc}\"` : ''} loading="lazy" />
+        <img class="lp-thumb" alt="${item.title}" ${imgSrc ? `src=\"${imgSrc}\"` : ''} onerror="if(!this.dataset.try){this.dataset.try='1';this.src='compact-3d-printer.jpg';}else if(this.dataset.try==='1'){this.dataset.try='2';this.src='compact-3d-printer.png';}else{this.style.display='none';}" loading="lazy" />
         <div class="lp-meta">
           <div class="header">
             <div>
