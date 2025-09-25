@@ -1,0 +1,36 @@
+Launchpad - Local quickstart
+============================
+
+This is a static site (HTML, CSS, JS). No build step.
+
+Open it
+-------
+- Double-click index.html.
+
+Or serve it locally (optional)
+------------------------------
+- Python 3: python -m http.server 8080, then visit http://localhost:8080
+- Node: npx --yes serve -l 8080, then visit http://localhost:8080
+
+Data
+----
+- Profile and points live in localStorage.
+- To reset, clear site data in your browser, or click "Clear" on the Profile page (profile only).
+
+Pages
+-----
+- Home: Landing page with quick links.
+- Profile: Save your name, role, bio, and skills. Shows your points.
+- Launchpad: Projects you create and track.
+- Skill Link: Filter projects and people by skills.
+
+Points
+------
+- "Mark Completed" adds +10 points.
+- "Mark Failed" deducts -6 points.
+
+Notes
+-----
+- Uses a single external script (three.js) for the particle background; everything else is plain HTML/CSS/JS.
+- If you prefer fewer animations, enable the "Reduced Motion" setting in your OS/browser and the site will dial them back automatically.
+
