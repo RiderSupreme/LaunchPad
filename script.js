@@ -59,11 +59,17 @@
       if (hasUnknownOwner) writeJSON(LS_KEYS.PROJECTS, PROJECTS);
     }
     // LaunchPad items seed + migration
-    let lp = readJSON(LS_KEYS.LP_ITEMS, null);
-    if (!Array.isArray(lp)) lp = [];
+    const lpRaw = readJSON(LS_KEYS.LP_ITEMS, null);
+    let lp = Array.isArray(lpRaw) ? lpRaw : [];
 
-    // Remove legacy Compact 3D Printer if present
-    const filtered = lp.filter((it) => String(it.title || '').trim().toLowerCase() !== 'compact 3d printer');
+    // Remove legacy Compact 3D Printer if present (by title, id, or image filename)
+    const filtered = lp.filter((it) => {
+      const title = String(it.title || '').trim().toLowerCase();
+      const id = String(it.id || '').trim().toLowerCase();
+      const image = String(it.image || '').trim().toLowerCase();
+      const isLegacy = title === 'compact 3d printer' || id === 'lp1' || image.includes('compact-3d-printer');
+      return !isLegacy;
+    });
 
     const hasHEARO = filtered.some((it) => (it.id === 'lp_hearo') || (String(it.title || '').trim().toLowerCase() === 'hearo'));
     const hasRoBlaze = filtered.some((it) => (it.id === 'lp_roblaze') || (String(it.title || '').trim().toLowerCase() === 'roblaze'));
@@ -97,8 +103,11 @@
     });
 
     const nextLp = filtered.length || seedItems.length ? [...filtered, ...seedItems] : seedItems;
-    if (nextLp.length !== lp.length || seedItems.length || filtered.length !== lp.length) {
-      writeJSON(LS_KEYS.LP_ITEMS, nextLp);
+    try {
+      const changed = JSON.stringify(lp) !== JSON.stringify(nextLp);
+      if (changed) writeJSON(LS_KEYS.LP_ITEMS, nextLp);
+    } catch {
+      if (nextLp.length !== lp.length) writeJSON(LS_KEYS.LP_ITEMS, nextLp);
     }
   }
 
