@@ -229,8 +229,8 @@
       : all;
     list.innerHTML = "";
     filtered.forEach(u => {
-      const avatarPng = `pfp/${u.name.toLowerCase().replace(/\s+/g,'')}pfpforlaunchpad.png`;
-      const avatarJpg = `pfp/${u.name.toLowerCase().replace(/\s+/g,'')}pfpforlaunchpad.jpg`;
+      const avatarPng = `pfp/${u.name.toLowerCase().replace(/\s+/g,'')}LaunchPad.png`;
+      const avatarJpg = `pfp/${u.name.toLowerCase().replace(/\s+/g,'')}LaunchPad.png`;
       const avatarFallbackLetter = (u.name || '?').trim().charAt(0).toUpperCase();
       const card = document.createElement("article");
       card.className = "person";
@@ -615,8 +615,8 @@
     const skills = (profile.skills || []).join(", ");
     const name = profile.name || (profile.id ? profile.id : '(No name)');
     const role = profile.role || '(No role)';
-    const avatarPng = `pfp/${name.toLowerCase().replace(/\s+/g,'')}pfpforlaunchpad.png`;
-    const avatarJpg = `pfp/${name.toLowerCase().replace(/\s+/g,'')}pfpforlaunchpad.jpg`;
+    const avatarPng = `pfp/${name.toLowerCase().replace(/\s+/g,'')}LaunchPad.png`;
+    const avatarJpg = `pfp/${name.toLowerCase().replace(/\s+/g,'')}LaunchPad.png`;
     const avatarLetter = (name || '?').trim().charAt(0).toUpperCase();
     wrap.innerHTML = `
       <div class="header id" style="margin-bottom:10px;">
@@ -718,8 +718,8 @@
       nameEl.textContent = user.name;
       roleEl.textContent = user.role;
       skillsEl.innerHTML = user.skills.map(s => `<span class="tag">${s}</span>`).join('');
-      const avatarPng = `pfp/${user.name.toLowerCase().replace(/\s+/g,'')}pfpforlaunchpad.png`;
-      const avatarJpg = `pfp/${user.name.toLowerCase().replace(/\s+/g,'')}pfpforlaunchpad.jpg`;
+      const avatarPng = `pfp/${user.name.toLowerCase().replace(/\s+/g,'')}LaunchPad.png`;
+      const avatarJpg = `pfp/${user.name.toLowerCase().replace(/\s+/g,'')}LaunchPad.png`;
       const letter = user.name.trim().charAt(0).toUpperCase();
       avatarEl.innerHTML = `<img src="${avatarPng}" alt="" onerror="this.onerror=null;this.src='${avatarJpg}';this.closest('.avatar').textContent='${letter}';this.remove();" loading="lazy" />`;
     } else if (nameEl) {
@@ -769,8 +769,8 @@
       skillsEl.innerHTML = user.skills.map(s => `<span class="tag">${s}</span>`).join('');
       projectsEl.textContent = 'Projects: ' + (user.projects && user.projects.length ? user.projects.join(', ') : 'None');
       pointsEl.textContent = String(points[user.id] || 0);
-      const avatarPng = `pfp/${user.name.toLowerCase().replace(/\s+/g,'')}pfpforlaunchpad.png`;
-      const avatarJpg = `pfp/${user.name.toLowerCase().replace(/\s+/g,'')}pfpforlaunchpad.jpg`;
+      const avatarPng = `pfp/${user.name.toLowerCase().replace(/\s+/g,'')}LaunchPad.png`;
+      const avatarJpg = `pfp/${user.name.toLowerCase().replace(/\s+/g,'')}LaunchPad.png`;
       const letter = user.name.trim().charAt(0).toUpperCase();
       avatarEl.innerHTML = `<img src="${avatarPng}" alt="" onerror="this.onerror=null;this.src='${avatarJpg}';this.closest('.avatar').textContent='${letter}';this.remove();" loading="lazy" />`;
     } else if (nameEl) {
